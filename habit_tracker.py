@@ -150,6 +150,9 @@ class HabitTracker(QWidget):
 
         self.habit_input = QLineEdit()
         self.habit_list_widget = QListWidget()
+        self.habit_list_widget.itemClicked.connect(self.toggle_done)
+        self.habit_list_widget.setContextMenuPolicy(Qt.CustomContextMenu)
+        self.habit_list_widget.customContextMenuRequested.connect(self.show_context_menu)
 
         self.init_ui()
 
@@ -197,9 +200,7 @@ class HabitTracker(QWidget):
 
             self.habit_list_widget.addItem(item)
 
-        self.habit_list_widget.itemClicked.connect(self.toggle_done)
-        self.habit_list_widget.setContextMenuPolicy(Qt.CustomContextMenu)
-        self.habit_list_widget.customContextMenuRequested.connect(self.show_context_menu)
+       
 
     def toggle_done(self, item):
         habit_id, _ = item.data(Qt.UserRole)
